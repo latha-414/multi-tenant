@@ -1,0 +1,52 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: 'AzureServiceConnection'
+  nodeVersion: '18.x'
+
+stages:
+- stage: DeployTenantA
+  jobs:
+  - job: DeployA
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+    - script: npm install
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        appName: 'dummy-node-app-a'
+        package: '$(System.DefaultWorkingDirectory)'
+
+- stage: DeployTenantB
+  jobs:
+  - job: DeployB
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+    - script: npm install
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        appName: 'dummy-node-app-b'
+        package: '$(System.DefaultWorkingDirectory)'
+
+- stage: DeployTenantC
+  jobs:
+  - job: DeployC
+    steps:
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '$(nodeVersion)'
+    - script: npm install
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: '$(azureSubscription)'
+        appName: 'dummy-node-app-c'
+        package: '$(System.DefaultWorkingDirectory)'
