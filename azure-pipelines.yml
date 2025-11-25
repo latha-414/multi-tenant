@@ -20,7 +20,7 @@ stages:
     - task: AzureWebApp@1
       inputs:
         azureSubscription: '$(azureSubscription)'
-        appName: 'dummy-node-app-a'
+        appName: 'asp-tenant-a'
         package: '$(System.DefaultWorkingDirectory)'
 
 - stage: DeployTenantB
@@ -34,7 +34,7 @@ stages:
     - task: AzureWebApp@1
       inputs:
         azureSubscription: '$(azureSubscription)'
-        appName: 'dummy-node-app-b'
+        appName: 'asp-tenant-b'
         package: '$(System.DefaultWorkingDirectory)'
 
 - stage: DeployTenantC
@@ -48,5 +48,5 @@ stages:
     - task: AzureWebApp@1
       inputs:
         azureSubscription: '$(azureSubscription)'
-        appName: 'dummy-node-app-c'
+        appName: 'asp-tenant-c'
         package: '$(System.DefaultWorkingDirectory)'
