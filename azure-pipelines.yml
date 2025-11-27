@@ -6,7 +6,7 @@ pool:
 
 variables:
   azureSubscription: 'AzureServiceConnection'
-  nodeVersion: '18.x'
+  nodeVersion: '22.x'
 
 stages:
 - stage: DeployTenantA
