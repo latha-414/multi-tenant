@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: Default 
+  name: Default
 
 variables:
   azureSubscription: 'AzureServiceConnection'
@@ -13,7 +13,7 @@ stages:
   jobs:
   - job: DeployA
     steps:
-    - checkout: self                 # <-- Important: Fetch repo
+    - checkout: self
     - task: NodeTool@0
       inputs:
         versionSpec: '$(nodeVersion)'
