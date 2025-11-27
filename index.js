@@ -1,5 +1,5 @@
 const express = require('express');
-const sql = require('mssql'); // npm install mssql
+const sql = require('mssql');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -7,25 +7,25 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Tenant database config
+// Tenant database configuration
 const tenants = {
   "tenant-a": {
-    user: 'sqladmin',
-    password: 'P@ssword1234!',
+    user: process.env.TA_DB_USER || 'sqladmin',
+    password: process.env.TA_DB_PASS || 'P@ssword1234!',
     server: 'sql-tenant-a-xxxx.database.windows.net',
     database: 'db-tenant-a',
     options: { encrypt: true }
   },
   "tenant-b": {
-    user: 'sqladmin',
-    password: 'P@ssword1234!',
+    user: process.env.TB_DB_USER || 'sqladmin',
+    password: process.env.TB_DB_PASS || 'P@ssword1234!',
     server: 'sql-tenant-b-xxxx.database.windows.net',
     database: 'db-tenant-b',
     options: { encrypt: true }
   },
   "tenant-c": {
-    user: 'sqladmin',
-    password: 'P@ssword1234!',
+    user: process.env.TC_DB_USER || 'sqladmin',
+    password: process.env.TC_DB_PASS || 'P@ssword1234!',
     server: 'sql-tenant-c-xxxx.database.windows.net',
     database: 'db-tenant-c',
     options: { encrypt: true }
@@ -58,7 +58,7 @@ app.post('/login', async (req, res) => {
       res.send('Invalid username or password');
     }
 
-    pool.close();
+    await pool.close();
   } catch (err) {
     console.error(err);
     res.send('Error connecting to database');
