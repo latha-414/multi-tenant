@@ -12,21 +12,21 @@ const tenants = {
   "tenant-a": {
     user: process.env.TA_DB_USER || 'sqladmin',
     password: process.env.TA_DB_PASS || 'P@ssword1234!',
-    server: 'sql-tenant-a-826m.database.windows.net',
+    server: 'sql-alpha-ib41.database.windows.net',
     database: 'db-tenant-a',
     options: { encrypt: true }
   },
   "tenant-b": {
     user: process.env.TB_DB_USER || 'sqladmin',
     password: process.env.TB_DB_PASS || 'P@ssword1234!',
-    server: 'sql-tenant-b-p034.database.windows.net',
+    server: 'sql-beta-kozg.database.windows.net',
     database: 'db-tenant-b',
     options: { encrypt: true }
   },
   "tenant-c": {
     user: process.env.TC_DB_USER || 'sqladmin',
     password: process.env.TC_DB_PASS || 'P@ssword1234!',
-    server: 'sql-tenant-c-6m60.database.windows.net',
+    server: 'sql-gamma-m9f0.database.windows.net',
     database: 'db-tenant-c',
     options: { encrypt: true }
   }
