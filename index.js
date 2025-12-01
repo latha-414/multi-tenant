@@ -40,7 +40,18 @@ app.get('/', (req, res) => {
 });
 
 // -----------------------------
-// 2️⃣ LOGIN ROUTE (COMMON LOGIC)
+// 2️⃣ REQUIRED GET ROUTES FOR APP GATEWAY PATH RULES
+// -----------------------------
+app.get('/api', (req, res) => {
+  res.sendFile(__dirname + '/user.html');
+});
+
+app.get('/route', (req, res) => {
+  res.sendFile(__dirname + '/user.html');
+});
+
+// -----------------------------
+// 3️⃣ COMMON LOGIN FUNCTION
 // -----------------------------
 async function tenantLogin(tenant, username, password, res) {
   if (!tenant || !tenants[tenant]) {
@@ -68,7 +79,7 @@ async function tenantLogin(tenant, username, password, res) {
 }
 
 // -----------------------------
-// 3️⃣ /login (DEFAULT)
+// 4️⃣ DEFAULT LOGIN
 // -----------------------------
 app.post('/login', async (req, res) => {
   const { tenant, username, password } = req.body;
@@ -76,7 +87,7 @@ app.post('/login', async (req, res) => {
 });
 
 // -----------------------------
-// 4️⃣ /api/login
+// 5️⃣ /api/login
 // -----------------------------
 app.post('/api/login', async (req, res) => {
   const { tenant, username, password } = req.body;
@@ -84,7 +95,7 @@ app.post('/api/login', async (req, res) => {
 });
 
 // -----------------------------
-// 5️⃣ /route/login
+// 6️⃣ /route/login
 // -----------------------------
 app.post('/route/login', async (req, res) => {
   const { tenant, username, password } = req.body;
