@@ -7,40 +7,42 @@ const port = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Tenant database configuration
+// Tenant DB config
 const tenants = {
   "tenant-a": {
-    user: process.env.TA_DB_USER || 'sqladmin',
-    password: process.env.TA_DB_PASS || 'P@ssword1234!',
+    user: 'sqladmin',
+    password: 'P@ssword1234!',
     server: 'sql-alpha-ib41.database.windows.net',
     database: 'db-alpha-ib41',
     options: { encrypt: true }
   },
   "tenant-b": {
-    user: process.env.TB_DB_USER || 'sqladmin',
-    password: process.env.TB_DB_PASS || 'P@ssword1234!',
+    user: 'sqladmin',
+    password: 'P@ssword1234!',
     server: 'sql-beta-kozg.database.windows.net',
     database: 'db-beta-kozg',
     options: { encrypt: true }
   },
   "tenant-c": {
-    user: process.env.TC_DB_USER || 'sqladmin',
-    password: process.env.TC_DB_PASS || 'P@ssword1234!',
+    user: 'sqladmin',
+    password: 'P@ssword1234!',
     server: 'sql-gamma-m9f0.database.windows.net',
     database: 'db-gamma-m9f0',
     options: { encrypt: true }
   }
 };
 
-// Serve login page
+// -----------------------------
+// 1️⃣ HOME PAGE ROUTE
+// -----------------------------
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/user.html');
 });
 
-// Login endpoint
-app.post('/login', async (req, res) => {
-  const { tenant, username, password } = req.body;
-
+// -----------------------------
+// 2️⃣ LOGIN ROUTE (COMMON LOGIC)
+// -----------------------------
+async function tenantLogin(tenant, username, password, res) {
   if (!tenant || !tenants[tenant]) {
     return res.send('Invalid tenant selected');
   }
@@ -63,8 +65,34 @@ app.post('/login', async (req, res) => {
     console.error(err);
     res.send('Error connecting to database');
   }
+}
+
+// -----------------------------
+// 3️⃣ /login (DEFAULT)
+// -----------------------------
+app.post('/login', async (req, res) => {
+  const { tenant, username, password } = req.body;
+  tenantLogin(tenant, username, password, res);
 });
 
+// -----------------------------
+// 4️⃣ /api/login
+// -----------------------------
+app.post('/api/login', async (req, res) => {
+  const { tenant, username, password } = req.body;
+  tenantLogin(tenant, username, password, res);
+});
+
+// -----------------------------
+// 5️⃣ /route/login
+// -----------------------------
+app.post('/route/login', async (req, res) => {
+  const { tenant, username, password } = req.body;
+  tenantLogin(tenant, username, password, res);
+});
+
+
+// Server start
 app.listen(port, () => {
   console.log(`Multi-Tenant app running on port ${port}`);
 });
